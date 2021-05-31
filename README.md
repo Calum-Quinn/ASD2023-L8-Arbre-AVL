@@ -5,10 +5,14 @@ un arbre binaire de recherche équilibré selon les principes expliqués au cour
 Le fichier [avlTree.h](./src/avlTree.h) en fournit l'interface et ne doit pas être modifié. 
 
 Pour chacune des méthodes déclarées vous devez fournir une mise en oeuvre à définir dans le fichier
-[avlTreeImplementation.h](./src/avlTreeImplementation.h), ainsi que du code testant le bon 
-fonctionnement à inclure dans le fichier [main.cpp](./src/main.cpp) que vous pouvez modifier à votre guise. Essayez
-cependant de le structurer pour que les différents tests apparaissent clairement, par exemple 
-avec une fonction de test par méthode testée. 
+[avlTreeImplementation.h](./src/avlTreeImplementation.h), ainsi que du code testant son bon 
+fonctionnement. Vous pouvez utiliser le fichier [main.cpp](./src/main.cpp) à votre guise lors 
+du développement. Cependant, les tests doivent être réalisés au format [catch2](https://github.com/catchorg/Catch2) dans le fichier 
+[catch2_tests/avlTest.cpp](./src/catch2_tests/avlTest.cpp) dont des exemples vous sont fournis. 
+Organisez vos tests avec un `TEST_CASE` par fonction à tester et une `SECTION` par test réalisé 
+sur cette fonction. Pensez à tous les scaenarii qu'il est pertinent de tester pour chacune des
+fonctions à réaliser. Il n'est pas nécessaire de tester les fonctions que vous écrivez mais qui ne 
+font pas partie de l'interface d'[avlTree.h](./src/avlTree.h) demandé. 
 
 La classe `avlTree` utilise la structure de noeud générique `avl::Node` définie dans le fichier
 [avlNode.h](./src/avlNode.h). Vous ne devez pas modifier cette structure. 

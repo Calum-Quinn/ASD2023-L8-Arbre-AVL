@@ -23,4 +23,11 @@ std::ostream& avlTree<Key>::show_indented(std::ostream& out) const {
     return avl::show_indented(root, out);
 }
 
+template<typename Key>
+std::ostream &operator<<(std::ostream & out, avlTree<Key> const & tree) {
+    // à compléter. Mis ici pour que le projet initial compile
+    out << "To be done";
+    return out;
+}
+
 #endif //ASD_2021_AVL_IMPL_H
