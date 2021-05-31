@@ -1,3 +1,4 @@
+#define CATCH_CONFIG_FAST_COMPILE
 #include "catch.hpp"
 #include "../avlTree.h"
 
@@ -122,7 +123,7 @@ TEST_CASE( "operator<<", "[avlTree]") {
         REQUIRE( oss.str() == "." );
     }
 
-    SECTION( "Ease test tree" ) {
+    SECTION( "Easy test tree" ) {
         avlTree<int> tree = make_easy_test_tree();
 
         ostringstream oss;
