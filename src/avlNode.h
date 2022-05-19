@@ -14,8 +14,9 @@ namespace avl {
         unsigned char height;
 
         inline Node*& left() noexcept { return children[LEFT]; }
-
+        inline Node* const& left() const noexcept { return children[LEFT]; }
         inline Node*& right() noexcept { return children[RIGHT]; }
+        inline Node* const& right() const noexcept { return children[RIGHT]; }
 
         static constexpr std::array<Node*, 2> NO_CHILD{nullptr, nullptr};
     };

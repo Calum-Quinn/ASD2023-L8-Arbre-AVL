@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(ASD_Labs_2021)
+project(ASD2022_L8_AVL_Tree)
 
 set(CMAKE_CXX_STANDARD 17)
 
