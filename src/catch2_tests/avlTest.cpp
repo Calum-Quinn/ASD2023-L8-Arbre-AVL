@@ -1,5 +1,5 @@
 #define CATCH_CONFIG_FAST_COMPILE
-#include "catch.hpp"
+#include "catch_amalgamated.hpp"
 #include "../avlTree.h"
 
 #include <sstream>
