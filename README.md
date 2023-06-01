@@ -25,7 +25,7 @@ la plupart de ces fonctions à écrire soient récursives, mais il est aussi pos
 certaines itérativement si vous préférez. 
 
 Idéalement, les définitions des méthodes dans [avlTreeImplementation.h](./src/avlTreeImplementation.h) 
-devraient essentiellement êtres des appels à des fonctions définies dans définies dans 
+devraient essentiellement êtres des appels à des fonctions définies dans 
 [avlNodeImplementation.h](./src/avlNodeImplementation.h). L'immense majorité de ces méthodes
 ne devraient faire qu'une ligne. 
 
