@@ -1,5 +1,10 @@
 # ASD L8 - Arbre AVL
 
+Membres du groupe Labo_08_H:
+- Calum Quinn
+- Dariaux Vasques
+- Ewan Mariaux
+
 Le but de ce laboratoire est de mettre en oeuvre la classe générique `avlTree` qui met en oeuvre 
 un arbre binaire de recherche équilibré selon les principes expliqués au cours pour les arbres AVL.
 Le fichier [avlTree.h](./src/avlTree.h) en fournit l'interface et ne doit pas être modifié. 
