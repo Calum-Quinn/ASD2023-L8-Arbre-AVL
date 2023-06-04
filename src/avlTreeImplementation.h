@@ -35,7 +35,6 @@ avlTree<Key>::~avlTree() {
 
 template<typename Key>
 bool avlTree<Key>::contains(Key const& k) const noexcept {
-
    if (!k)
       return false;
    else if(k == this->key)
@@ -79,54 +78,59 @@ Key const& avlTree<Key>::max() const {
 
 template<typename Key>
 void avlTree<Key>::erase_min() {
-   if (!this)
-      return;
-   else if(this->left)
-      this->left.erase_min();
-   else {
-      avl::Node temp = this->right;
-      delete(this);
-      this = &temp;
-   }
-
-//   si r == ⌀
-//   signaler erreur
-//   sinon, si r.gauche != ⌀
-//   supprimer_min (r.gauche)
-//   sinon, // r est le minimum
-//      d ← r.droit
-//   effacer r
-//   r ← d
+   erase(min());
 }
 
 template<typename Key>
 void avlTree<Key>::erase_max() {
-   if (!this)
-      return;
-   else if(this->right)
-      this->right.erase_max();
-   else
-      delete(this);
+   erase(max());
 }
 
 template<typename Key>
 void avlTree<Key>::erase(Key const& k) noexcept {
+   if(!this)
+      return;
+   else if(k < this->key)
+      this->left.erase(k);
+   else if(k > this->key)
+      this->right.erase(k);
+   else {
+      avl::Node temp = *this;
+      if (!this->left)
+         this = this->right;
+      else if(!this->right)
+         this = this->left;
+      else {
+         avl::Node<Key>* temp2 = avl::giveMin(this->right);
+         temp2->right() = this->right;
+         temp2->left() = this->left;
+         this = temp2;
+      }
+   }
 
+//   si r == ⌀
+//// k est absent
+//   sinon, si k < r.clé
+//   supprimer (r.gauche, k)
+//   sinon, si k > r.clé
+//   supprimer (r.droit, k)
+//   sinon, // k est trouvé
+//      tmp ← r
+//   si r.gauche == ⌀
+//   r ← r.droit
+//   sinon, si r.droit == ⌀
+//   r ← r.gauche
+//   sinon, // Hibbard
+//      m ← sortir_min (r.droit)
+//   m.droit ← r.droit
+//   m.gauche ← r.gauche
+//   r ← m
+//   effacer tmp
 }
 
 template<typename Key>
 unsigned char avlTree<Key>::height() const noexcept {
-   if (!this)
-      return 0;
-   else
-      return this->height();
-
-//   si r == ⌀, retourner 0
-//   sinon, retourner r.hauteur
-//
-//   fonction calculer_hauteur (r)
-//   si r != ⌀,
-//   r.hauteur = 1 + max(hauteur(r.gauche), hauteur(r.droit))
+   avl::height(root);
 }
 
 template<typename Key>

@@ -30,6 +30,15 @@ namespace avl {
                        std::ostream &out = std::cout,
                        std::string before = "",
                        bool isright = false);
+
+    template<typename Key>
+    unsigned char height(const Node<Key>* const& node);
+
+    template<typename Key>
+    void calculateHeight(Node<Key>* const& node);
+
+    template<typename Key>
+    Node<Key>* giveMin(Node<Key>*& node);
 }
 
 #include "avlNodeImplementation.h"

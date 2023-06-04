@@ -41,6 +41,39 @@ namespace avl {
         }
         return out;
     }
+
+   template<typename Key>
+   unsigned char height(const Node<Key>* const& node) {
+      if (!node)
+         return 0;
+      else
+         return node->height();
+
+//   si r == ⌀, retourner 0
+//   sinon, retourner r.hauteur
+   }
+
+   template<typename Key>
+   void calculateHeight(Node<Key>* const& node) {
+      if(node) {
+         node->height = 1 + max(node->left()->height, node->right()->height);
+      }
+//   fonction calculer_hauteur (r)
+//   si r != ⌀,
+//   r.hauteur = 1 + max(hauteur(r.gauche), hauteur(r.droit))
+   }
+
+   template<typename Key>
+   Node<Key>* giveMin(Node<Key>*& node) {
+      if (node->left()) {
+         return giveMin(node->left());
+      }
+      else {
+         Node<Key>* temp = node;
+         node = node->right();
+         return temp;
+      }
+   }
 }
 
 #endif //ASD_LABS_2021_AVLNODEIMPLEMENTATION_H
