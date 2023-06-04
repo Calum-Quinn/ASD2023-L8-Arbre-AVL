@@ -11,6 +11,11 @@ std::ostream &operator<<(std::ostream & out, avlTree<Key> const & tree) {
 }
 
 template<typename Key>
+std::istream &operator>>(std::istream& in, avlTree<Key>& tree) {
+
+}
+
+template<typename Key>
 avlTree<Key>::avlTree() : root(nullptr) {}
 
 template<typename Key>

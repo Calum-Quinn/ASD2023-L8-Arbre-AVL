@@ -43,6 +43,30 @@ namespace avl {
     }
 
    template<typename Key>
+   std::ostream& show_inline(Node<Key> *r,std::ostream& out) {
+      if (!r)
+         return out << ".";
+      out << r->key;
+      out << "(";
+      show_inline(r->left(),out);
+      out << ",";
+      show_inline(r->right(),out);
+      out << ")";
+
+      return out;
+
+//      si r != ⌀
+//      Afficher r.etiquette
+//      si degré(r) > 0
+//      Afficher "("
+//      pour tout enfant e de r
+//      imbriquer(e)
+//      si e n’est pas le dernier
+//      Afficher ","
+//      Afficher ")"
+   }
+
+   template<typename Key>
    unsigned char height(const Node<Key>* const& node) {
       if (!node)
          return 0;

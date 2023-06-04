@@ -32,6 +32,9 @@ namespace avl {
                        bool isright = false);
 
     template<typename Key>
+    std::ostream& show_inline(Node<Key> *r,std::ostream& out);
+
+    template<typename Key>
     unsigned char height(const Node<Key>* const& node);
 
     template<typename Key>
