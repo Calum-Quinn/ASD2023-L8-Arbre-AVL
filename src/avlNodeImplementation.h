@@ -73,18 +73,16 @@ namespace avl {
       out = new Node<Key>{in.get(c),{nullptr, nullptr},1};
       Node<Key>* n = out;
       while (in.get(c)) {
-         switch (c) {
-            case ',':
-               n->puine = new Node<Key>{in.get(c), {nullptr, nullptr}, 1};
-               n = n->puine;
-               break;
-            case '(':
-               from_string(in, n->left());
-               break;
-            case ')':
-               return;
-            default :
-               throw std::invalid_argument("Arbre non valide");
+         if (c == '(') {
+            from_string(in, n->left());
+            in.get(c);
+            from_string(in, n->right());
+         }
+         else if(c == ')') {
+            return;
+         }
+         else {
+            throw std::invalid_argument("Arbre non valide");
          }
       }
    }
