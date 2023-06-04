@@ -57,13 +57,36 @@ namespace avl {
 
 //      si r != ⌀
 //      Afficher r.etiquette
-//      si degré(r) > 0
 //      Afficher "("
 //      pour tout enfant e de r
 //      imbriquer(e)
 //      si e n’est pas le dernier
 //      Afficher ","
 //      Afficher ")"
+   }
+
+
+   //Pris des slides 5.1 slide 38
+   template<typename Key>
+   void from_string(std::istream& in, Node<Key>*& out) {
+      char c;
+      out = new Node<Key>{in.get(c),{nullptr, nullptr},1};
+      Node<Key>* n = out;
+      while (in.get(c)) {
+         switch (c) {
+            case ',':
+               n->puine = new Node<Key>{in.get(c), {nullptr, nullptr}, 1};
+               n = n->puine;
+               break;
+            case '(':
+               from_string(in, n->left());
+               break;
+            case ')':
+               return;
+            default :
+               throw std::invalid_argument("Arbre non valide");
+         }
+      }
    }
 
    template<typename Key>
@@ -96,6 +119,27 @@ namespace avl {
          Node<Key>* temp = node;
          node = node->right();
          return temp;
+      }
+   }
+
+   template<typename Key>
+   Node<Key>* duplicate(Node<Key>* other) {
+      if (!other)
+         return nullptr;
+
+      Node<Key>* leftSubTree = copy(other->left());
+      Node<Key>* rightSubTree = copy(other->left());
+
+      return new Node<Key>{other->key, leftSubTree, rightSubTree, other->height};
+   }
+
+   template<typename Key>
+   void destroy(Node<Key>* node) {
+      if (node) {
+         destroy(node->left());
+         destroy(node->left());
+         delete(node);
+         node = nullptr;
       }
    }
 }

@@ -35,6 +35,9 @@ namespace avl {
     std::ostream& show_inline(Node<Key> *r,std::ostream& out);
 
     template<typename Key>
+    void from_string(std::istream& in, Node<Key>*& node);
+
+    template<typename Key>
     unsigned char height(const Node<Key>* const& node);
 
     template<typename Key>
@@ -42,6 +45,12 @@ namespace avl {
 
     template<typename Key>
     Node<Key>* giveMin(Node<Key>*& node);
+
+    template<typename Key>
+    Node<Key>* duplicate(Node<Key>* other);
+
+    template<typename Key>
+    void destroy(Node<Key>* node);
 }
 
 #include "avlNodeImplementation.h"
