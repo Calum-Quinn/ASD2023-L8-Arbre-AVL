@@ -36,6 +36,15 @@ avlTree<Key>::~avlTree() {
 template<typename Key>
 bool avlTree<Key>::contains(Key const& k) const noexcept {
 
+   if (!k)
+      return false;
+   else if(k == this->key)
+      return true;
+   else if(k < this->key)
+      return this->left.contains(k);
+   else
+      return this->right.contains(k);
+
 //   fonction chercher (r, k)
 //   si r est ⌀
 //   k n’est pas dans l’arbre
@@ -49,22 +58,55 @@ bool avlTree<Key>::contains(Key const& k) const noexcept {
 
 template<typename Key>
 Key const& avlTree<Key>::min() const {
+   if (this->left)
+      return this->left.min();
+   else
+      return this->key;
 
+//   si r.gauche != ⌀
+//   retourner min(r.gauche)
+//   sinon
+//   retourner r
 }
 
 template<typename Key>
 Key const& avlTree<Key>::max() const {
-
+   if (this->right)
+      return this->right.min();
+   else
+      return this->key;
 }
 
 template<typename Key>
 void avlTree<Key>::erase_min() {
+   if (!this)
+      return;
+   else if(this->left)
+      this->left.erase_min();
+   else {
+      avl::Node temp = this->right;
+      delete(this);
+      this = &temp;
+   }
 
+//   si r == ⌀
+//   signaler erreur
+//   sinon, si r.gauche != ⌀
+//   supprimer_min (r.gauche)
+//   sinon, // r est le minimum
+//      d ← r.droit
+//   effacer r
+//   r ← d
 }
 
 template<typename Key>
 void avlTree<Key>::erase_max() {
-
+   if (!this)
+      return;
+   else if(this->right)
+      this->right.erase_max();
+   else
+      delete(this);
 }
 
 template<typename Key>
@@ -74,7 +116,11 @@ void avlTree<Key>::erase(Key const& k) noexcept {
 
 template<typename Key>
 unsigned char avlTree<Key>::height() const noexcept {
-//   fonction hauteur (r)
+   if (!this)
+      return 0;
+   else
+      return this->height();
+
 //   si r == ⌀, retourner 0
 //   sinon, retourner r.hauteur
 //
