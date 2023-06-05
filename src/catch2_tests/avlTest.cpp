@@ -131,3 +131,51 @@ TEST_CASE( "operator<<", "[avlTree]") {
         REQUIRE( oss.str() == "6(3(2(1(.,.),.),4(.,5(.,.))),9(7(.,8(.,.)),10(.,.)))" );
     }
 }
+
+//Choses à tester
+//avlTree();
+//avlTree(avlTree const &other);
+//avlTree &operator=(avlTree const &other);
+//~avlTree();
+//bool contains(Key const& k) const noexcept ;
+//Key const& min() const;
+//Key const& max() const;
+//void erase_min();
+//void erase_max();
+//void erase(Key const& k) noexcept ;
+//[[nodiscard]] unsigned char height() const noexcept;
+
+TEST_CASE("avlTree", "[avlTree]") {
+
+   SECTION("Empty tree") {
+      avlTree<int> tree;
+
+      ostringstream oss;
+      tree.show_indented(oss);
+      REQUIRE(oss.str() == ".\n");
+   }
+}
+
+TEST_CASE("avlTree(avlTree const &other)", "[avlTree]") {
+
+   SECTION("Easy tree") {
+      avlTree<int> easy = make_easy_test_tree();
+      avlTree<int> tree(easy);
+
+      ostringstream oss;
+      tree.show_indented(oss);
+      REQUIRE(oss.str() == "6\n"
+                           "|_ 3\n"
+                           "|  |_ 2\n"
+                           "|  |  |_ 1\n"
+                           "|  |  |_ .\n"
+                           "|  |_ 4\n"
+                           "|     |_ .\n"
+                           "|     |_ 5\n"
+                           "|_ 9\n"
+                           "   |_ 7\n"
+                           "   |  |_ .\n"
+                           "   |  |_ 8\n"
+                           "   |_ 10\n");
+   }
+}

@@ -135,13 +135,11 @@ namespace avl {
    void destroy(Node<Key>* node) {
       if (node) {
          destroy(node->left());
-         destroy(node->left());
+         destroy(node->right());
          delete(node);
          node = nullptr;
       }
    }
 }
-
-
 
 #endif //ASD_LABS_2021_AVLNODEIMPLEMENTATION_H

@@ -15,4 +15,9 @@ int main() {
         cout << endl;
     }
     cout << t << endl;
+
+   avlTree<int> tree;
+   for(int i : { 6, 3, 9, 2, 4, 7, 10, 1, 5, 8 })
+      tree.insert(i);
+   tree.show_indented();
 }
