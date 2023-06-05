@@ -125,8 +125,8 @@ namespace avl {
       if (!other)
          return nullptr;
 
-      Node<Key>* leftSubTree = copy(other->left());
-      Node<Key>* rightSubTree = copy(other->left());
+      Node<Key>* leftSubTree = duplicate(other->left());
+      Node<Key>* rightSubTree = duplicate(other->left());
 
       return new Node<Key>{other->key, leftSubTree, rightSubTree, other->height};
    }
@@ -141,5 +141,7 @@ namespace avl {
       }
    }
 }
+
+
 
 #endif //ASD_LABS_2021_AVLNODEIMPLEMENTATION_H
