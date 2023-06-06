@@ -70,10 +70,7 @@ Key const& avlTree<Key>::min() const {
 
 template<typename Key>
 Key const& avlTree<Key>::max() const {
-   if (this->right)
-      return this->right.min();
-   else
-      return this->key;
+   return avl::giveMinMax(root,avl::RIGHT)->key;
 }
 
 template<typename Key>
