@@ -109,15 +109,22 @@ namespace avl {
    }
 
    template<typename Key>
-   Node<Key>* giveMin(Node<Key>*& node) {
-      if (node->left()) {
-         return giveMin(node->left());
+   Node<Key>* giveMinMax(Node<Key>* node, Side side) {
+      if (!node) {
+         throw std::invalid_argument("Arbre vide");
+      }
+
+      if(side) {
+         if (node->right()) {
+            return giveMinMax(node->right(),side);
+         }
       }
       else {
-         Node<Key>* temp = node;
-         node = node->right();
-         return temp;
+         if (node->left()) {
+            return giveMinMax(node->left(),side);
+         }
       }
+      return node;
    }
 
    template<typename Key>
@@ -126,7 +133,7 @@ namespace avl {
          return nullptr;
 
       Node<Key>* leftSubTree = duplicate(other->left());
-      Node<Key>* rightSubTree = duplicate(other->left());
+      Node<Key>* rightSubTree = duplicate(other->right());
 
       return new Node<Key>{other->key, leftSubTree, rightSubTree, other->height};
    }

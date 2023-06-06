@@ -44,7 +44,7 @@ namespace avl {
     void calculateHeight(Node<Key>* const& node);
 
     template<typename Key>
-    Node<Key>* giveMin(Node<Key>*& node);
+    Node<Key>* giveMinMax(Node<Key>* node, Side side);
 
     template<typename Key>
     Node<Key>* duplicate(Node<Key>* other);
