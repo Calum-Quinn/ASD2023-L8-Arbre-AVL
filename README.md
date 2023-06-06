@@ -2,7 +2,7 @@
 
 Membres du groupe Labo_08_H:
 - Calum Quinn
-- Dariaux Vasques
+- Dario Vasques
 - Ewan Mariaux
 
 Le but de ce laboratoire est de mettre en oeuvre la classe générique `avlTree` qui met en oeuvre 
