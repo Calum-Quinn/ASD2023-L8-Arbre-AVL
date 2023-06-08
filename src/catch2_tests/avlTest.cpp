@@ -134,9 +134,6 @@ TEST_CASE( "operator<<", "[avlTree]") {
 
 //Choses à tester
 
-//~avlTree();
-//bool contains(Key const& k) const noexcept ;
-//void erase(Key const& k) noexcept ;
 //[[nodiscard]] unsigned char height() const noexcept;
 
 TEST_CASE("avlTree", "[avlTree]") {
@@ -423,5 +420,17 @@ TEST_CASE("contains", "[avlTree]") {
       avlTree<int> tree;
 
       REQUIRE(tree.contains(5) == false);
+   }
+
+   SECTION("Key not in tree") {
+      avlTree<int> tree = make_easy_test_tree();
+
+      REQUIRE(tree.contains(36) == false);
+   }
+
+   SECTION("Key in tree") {
+      avlTree<int> tree = make_easy_test_tree();
+
+      REQUIRE(tree.contains(5) == true);
    }
 }

@@ -147,6 +147,66 @@ namespace avl {
          node = nullptr;
       }
    }
+
+   template<typename Key>
+   bool contains(Node<Key>* node,Key const& k) {
+      if (!k || !node)
+         return false;
+      else if(k == node->key)
+         return true;
+      else if(k < node->key)
+         return contains(node->left(), k);
+      else
+         return contains(node->right(), k);
+   }
+
+   template<typename Key>
+   void erase(Node<Key>* node, Key const& k) {
+      if(!node){
+         return;
+      }
+      else if(k < node->key){
+         erase(node->left(),k);
+         restoreBalance(node);
+      }
+      else if(k > node->key){
+         erase(node->right(),k);
+         restoreBalance(node);
+      }
+      else {
+         Node<Key>* temp = node;
+         if(!node->left())
+            node = node->right();
+         else if(!node->right())
+            node = node->left();
+         else {
+            Node<Key>* min = giveMinMax(node, avl::LEFT);
+            min->right() = node->right();
+            min->left() = node->left();
+            node = min;
+         }
+      }
+
+
+//   si r == ⌀
+//// k est absent
+//   sinon, si k < r.clé
+//   supprimer (r.gauche, k)
+//   sinon, si k > r.clé
+//   supprimer (r.droit, k)
+//   sinon, // k est trouvé
+//      tmp ← r
+//   si r.gauche == ⌀
+//   r ← r.droit
+//   sinon, si r.droit == ⌀
+//   r ← r.gauche
+//   sinon, // Hibbard
+//      m ← sortir_min (r.droit)
+//   m.droit ← r.droit
+//   m.gauche ← r.gauche
+//   r ← m
+//   effacer tmp
+   }
 }
 
 #endif //ASD_LABS_2021_AVLNODEIMPLEMENTATION_H

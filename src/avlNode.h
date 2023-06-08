@@ -51,6 +51,12 @@ namespace avl {
 
     template<typename Key>
     void destroy(Node<Key>* node);
+
+    template<typename Key>
+    bool contains(Node<Key>* node,Key const& k);
+
+    template<typename Key>
+    void erase(Node<Key>* node, Key const& k);
 }
 
 #include "avlNodeImplementation.h"
