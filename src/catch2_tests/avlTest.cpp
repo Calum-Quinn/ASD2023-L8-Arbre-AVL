@@ -433,3 +433,72 @@ TEST_CASE("contains", "[avlTree]") {
       REQUIRE(tree.contains(5) == true);
    }
 }
+
+
+TEST_CASE("erase", "[avlTree]") {
+
+   SECTION("Empty tree") {
+      avlTree<int> tree;
+
+      tree.erase(2);
+
+      ostringstream oss;
+      tree.show_indented(oss);
+      REQUIRE(oss.str() == ".\n");
+
+   }
+
+   SECTION("easy tree") {
+      avlTree<int> easy = make_easy_test_tree();
+
+      easy.erase(2);
+
+      ostringstream oss;
+      easy.show_indented(oss);
+      REQUIRE( oss.str() == "6\n"
+                            "|_ 3\n"
+                            "|  |_ 1\n"
+                            "|  |_ 4\n"
+                            "|     |_ .\n"
+                            "|     |_ 5\n"
+                            "|_ 9\n"
+                            "   |_ 7\n"
+                            "   |  |_ .\n"
+                            "   |  |_ 8");
+   }
+
+   SECTION("one element tree") {
+      avlTree<int> tree;
+      tree.insert(3);
+
+      tree.erase(3);
+
+      ostringstream oss;
+      tree.show_indented(oss);
+      REQUIRE(oss.str() == ".\n");
+   }
+
+   SECTION("two element tree delete last element") {
+      avlTree<int> tree;
+      tree.insert(3);
+      tree.insert(2);
+
+      tree.erase(2);
+
+      ostringstream oss;
+      tree.show_indented(oss);
+      REQUIRE(oss.str() == "3\n");
+   }
+
+   SECTION("two element delete first element") {
+      avlTree<int> tree;
+      tree.insert(2);
+      tree.insert(3);
+
+      tree.erase(2);
+
+      ostringstream oss;
+      tree.show_indented(oss);
+      REQUIRE(oss.str() == "1\n");
+   }
+}

@@ -93,7 +93,7 @@ namespace avl {
       if (!node)
          return 0;
       else
-         return node->height();
+         return node->height;
 
 //   si r == ⌀, retourner 0
 //   sinon, retourner r.hauteur
