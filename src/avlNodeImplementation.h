@@ -103,7 +103,7 @@ namespace avl {
    void calculateHeight(Node<Key>*& node) {
       if(node) {
          //Appeler height() -> opérateur ternaire pour initialiser ou retourner height des enfants
-         node->height = 1 + std::max(node->left()->height, node->right()->height);
+         node->height = 1 + std::max(height(node->left()), height(node->right()));
       }
 //   fonction calculer_hauteur (r)
 //   si r != ⌀,
