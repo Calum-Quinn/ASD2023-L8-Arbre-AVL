@@ -41,7 +41,19 @@ namespace avl {
     unsigned char height(const Node<Key>* const& node);
 
     template<typename Key>
-    void calculateHeight(Node<Key>* const& node);
+    void calculateHeight(Node<Key>*& node);
+
+    template<typename Key>
+    int balance(Node<Key>* const& node);
+
+    template<typename Key>
+    void rotateLeft(Node<Key>*& node);
+
+    template<typename Key>
+    void rotateRight(Node<Key>*& node);
+
+    template<typename Key>
+    void restoreBalance(Node<Key>*& node);
 
     template<typename Key>
     Node<Key>* giveMinMax(Node<Key>* node, Side side);

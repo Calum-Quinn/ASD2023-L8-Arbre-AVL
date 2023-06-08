@@ -14,6 +14,7 @@ namespace avl {
         } else {
             Side s = k < r->key ? LEFT : RIGHT;
             insert_in_subtree(r->children[s], k);
+            restoreBalance(r);
         }
     }
 
@@ -99,9 +100,10 @@ namespace avl {
    }
 
    template<typename Key>
-   void calculateHeight(Node<Key>* const& node) {
+   void calculateHeight(Node<Key>*& node) {
       if(node) {
-         node->height = 1 + max(node->left()->height, node->right()->height);
+         //Appeler height() -> opérateur ternaire pour initialiser ou retourner height des enfants
+         node->height = 1 + std::max(node->left()->height, node->right()->height);
       }
 //   fonction calculer_hauteur (r)
 //   si r != ⌀,
@@ -109,9 +111,88 @@ namespace avl {
    }
 
    template<typename Key>
+   int balance(Node<Key>* const& node){
+      if(!node){
+         return 0;
+      }
+      return height(node->left()) - height(node->right());
+      //fonction équilibre (r)
+      //si r == ⌀, retourner 0
+      //sinon,
+      //retourner hauteur(r.gauche) - hauteur(r.droit)
+   }
+
+    template<typename Key>
+    void rotateLeft(Node<Key>*& node){
+       Node<Key>* temp = node->right();
+       node->right() = temp->left();
+       temp->left() = node;
+       node = temp;
+       calculateHeight(node->left());
+       calculateHeight(node);
+       //fonction rotation_gauche (ref r)
+       //t ← r.droit
+       //r.droit ← t.gauche
+       //t.gauche ← r
+       //r ← t
+       // calculer_hauteur(r.gauche)
+       // calculer_hauteur(r)
+    }
+
+    template<typename Key>
+    void rotateRight(Node<Key>*& node){
+       Node<Key>* temp = node->left();
+       node->left() = temp->right();
+       temp->right() = node;
+       node = temp;
+       calculateHeight(node->right());
+       calculateHeight(node);
+       //fonction rotation_droite (ref r)
+       //t ← r.gauche
+       //r.gauche ← t.droit
+       //t.droit ← r
+       //r ← t
+       //calculer_hauteur(r.droit)
+       //calculer_hauteur(r)
+    }
+
+    template<typename Key>
+    void restoreBalance(Node<Key>*& node){
+       if(!node)
+          return;
+
+       if(balance(node) < -1){
+          if(balance(node->right()) > 0){
+             rotateRight(node->right());
+          }
+          rotateLeft(node);
+       }
+       else if(balance(node) > -1){
+          if(balance(node->left()) < 0){
+             rotateLeft(node->left());
+          }
+          rotateRight(node);
+       }
+       else{
+          calculateHeight(node);
+       }
+       //fonction rétablir_équilibre (ref r)
+       //si r == ⌀, retourner
+       //si équilibre(r) < -1, // penche à droite
+          //si équilibre(r.droit) > 0,
+          //rotation_droite(r.droit)
+       //rotation_gauche(r)
+       //sinon, si équilibre(r) > -1, // penche à gauche
+          //si équilibre(r.gauche) < 0,
+          //rotation_gauche(r.gauche)
+       //rotation_droite(r)
+       //sinon, calculer_hauteur(r)
+    }
+
+   template<typename Key>
    Node<Key>* giveMinMax(Node<Key>* node, Side side) {
       if (!node) {
-         throw std::invalid_argument("Arbre vide");
+         throw std::invalid_argument("Empty Tree");
       }
 
       if(side) {

@@ -137,7 +137,6 @@ TEST_CASE( "operator<<", "[avlTree]") {
 //[[nodiscard]] unsigned char height() const noexcept;
 
 TEST_CASE("avlTree", "[avlTree]") {
-
    SECTION("Empty tree") {
       avlTree<int> tree;
 
