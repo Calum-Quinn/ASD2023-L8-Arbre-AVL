@@ -167,7 +167,7 @@ namespace avl {
           }
           rotateLeft(node);
        }
-       else if(balance(node) > -1){
+       else if(balance(node) > 1){
           if(balance(node->left()) < 0){
              rotateLeft(node->left());
           }
@@ -255,17 +255,22 @@ namespace avl {
          restoreBalance(node);
       }
       else {
-         Node<Key>* temp = node;
-         if(!node->left())
+         Node<Key> *min;
+         Node<Key> *temp = node;
+         if (!node->left())
             node = node->right();
-         else if(!node->right())
+         else if (!node->right())
             node = node->left();
          else {
-            Node<Key>* min = giveMinMax(node, avl::LEFT);
+            min = giveMinMax(node, avl::LEFT);
             min->right() = node->right();
             min->left() = node->left();
             node = min;
+            //temp->~Node();
          }
+
+         delete(temp);
+
       }
 
 
