@@ -225,7 +225,6 @@ namespace avl {
             node = min;
          }
          delete(temp);
-
       }
    }
 }

@@ -24,7 +24,6 @@ void avlTree<Key>::insert(Key const& k) {
 
 template<typename Key>
 avlTree<Key>::avlTree(avlTree const &other) {
-
       root = avl::duplicate(other.root);
 }
 
