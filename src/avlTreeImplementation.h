@@ -74,7 +74,7 @@ void avlTree<Key>::erase(Key const& k) noexcept {
 
 template<typename Key>
 unsigned char avlTree<Key>::height() const noexcept {
-   avl::height(root);
+   return avl::height(root);
 }
 
 template<typename Key>

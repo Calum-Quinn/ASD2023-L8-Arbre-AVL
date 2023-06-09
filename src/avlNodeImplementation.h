@@ -14,6 +14,7 @@ namespace avl {
         } else {
             Side s = k < r->key ? LEFT : RIGHT;
             insert_in_subtree(r->children[s], k);
+            calculateHeight(r);
             restoreBalance(r);
         }
     }
@@ -55,19 +56,8 @@ namespace avl {
       out << ")";
 
       return out;
-
-//      si r != ⌀
-//      Afficher r.etiquette
-//      Afficher "("
-//      pour tout enfant e de r
-//      imbriquer(e)
-//      si e n’est pas le dernier
-//      Afficher ","
-//      Afficher ")"
    }
 
-
-   //Pris des slides 5.1 slide 38
    template<typename Key>
    void from_string(std::istream& in, Node<Key>*& out) {
       char c;
@@ -94,9 +84,6 @@ namespace avl {
          return 0;
       else
          return node->height;
-
-//   si r == ⌀, retourner 0
-//   sinon, retourner r.hauteur
    }
 
    template<typename Key>
@@ -105,9 +92,6 @@ namespace avl {
          //Appeler height() -> opérateur ternaire pour initialiser ou retourner height des enfants
          node->height = 1 + std::max(height(node->left()), height(node->right()));
       }
-//   fonction calculer_hauteur (r)
-//   si r != ⌀,
-//   r.hauteur = 1 + max(hauteur(r.gauche), hauteur(r.droit))
    }
 
    template<typename Key>
@@ -116,10 +100,6 @@ namespace avl {
          return 0;
       }
       return height(node->left()) - height(node->right());
-      //fonction équilibre (r)
-      //si r == ⌀, retourner 0
-      //sinon,
-      //retourner hauteur(r.gauche) - hauteur(r.droit)
    }
 
     template<typename Key>
@@ -130,13 +110,6 @@ namespace avl {
        node = temp;
        calculateHeight(node->left());
        calculateHeight(node);
-       //fonction rotation_gauche (ref r)
-       //t ← r.droit
-       //r.droit ← t.gauche
-       //t.gauche ← r
-       //r ← t
-       // calculer_hauteur(r.gauche)
-       // calculer_hauteur(r)
     }
 
     template<typename Key>
@@ -147,13 +120,6 @@ namespace avl {
        node = temp;
        calculateHeight(node->right());
        calculateHeight(node);
-       //fonction rotation_droite (ref r)
-       //t ← r.gauche
-       //r.gauche ← t.droit
-       //t.droit ← r
-       //r ← t
-       //calculer_hauteur(r.droit)
-       //calculer_hauteur(r)
     }
 
     template<typename Key>
@@ -176,17 +142,6 @@ namespace avl {
        else{
           calculateHeight(node);
        }
-       //fonction rétablir_équilibre (ref r)
-       //si r == ⌀, retourner
-       //si équilibre(r) < -1, // penche à droite
-          //si équilibre(r.droit) > 0,
-          //rotation_droite(r.droit)
-       //rotation_gauche(r)
-       //sinon, si équilibre(r) > -1, // penche à gauche
-          //si équilibre(r.gauche) < 0,
-          //rotation_gauche(r.gauche)
-       //rotation_droite(r)
-       //sinon, calculer_hauteur(r)
     }
 
    template<typename Key>
@@ -220,7 +175,7 @@ namespace avl {
    }
 
    template<typename Key>
-   void destroy(Node<Key>* node) {
+   void destroy(Node<Key>*& node) {
       if (node) {
          destroy(node->left());
          destroy(node->right());
@@ -249,10 +204,12 @@ namespace avl {
       else if(k < node->key){
          erase(node->left(),k);
          restoreBalance(node);
+         calculateHeight(node);
       }
       else if(k > node->key){
          erase(node->right(),k);
          restoreBalance(node);
+         calculateHeight(node);
       }
       else {
          Node<Key>* min;
@@ -266,32 +223,10 @@ namespace avl {
             min->right() = node->right();
             min->left() = node->left();
             node = min;
-            //temp->~Node();
          }
-
          delete(temp);
 
       }
-
-
-//   si r == ⌀
-//// k est absent
-//   sinon, si k < r.clé
-//   supprimer (r.gauche, k)
-//   sinon, si k > r.clé
-//   supprimer (r.droit, k)
-//   sinon, // k est trouvé
-//      tmp ← r
-//   si r.gauche == ⌀
-//   r ← r.droit
-//   sinon, si r.droit == ⌀
-//   r ← r.gauche
-//   sinon, // Hibbard
-//      m ← sortir_min (r.droit)
-//   m.droit ← r.droit
-//   m.gauche ← r.gauche
-//   r ← m
-//   effacer tmp
    }
 }
 

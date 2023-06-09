@@ -62,7 +62,7 @@ namespace avl {
     Node<Key>* duplicate(Node<Key>* other);
 
     template<typename Key>
-    void destroy(Node<Key>* node);
+    void destroy(Node<Key>*& node);
 
     template<typename Key>
     bool contains(Node<Key>* node,Key const& k);

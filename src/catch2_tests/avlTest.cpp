@@ -132,9 +132,15 @@ TEST_CASE( "operator<<", "[avlTree]") {
     }
 }
 
-//Choses à tester
 
-//[[nodiscard]] unsigned char height() const noexcept;
+
+//-----------------------------------------------------------------------------------------
+
+//------------------------------------Nos tests--------------------------------------------
+
+//-----------------------------------------------------------------------------------------
+
+
 
 TEST_CASE("avlTree", "[avlTree]") {
    SECTION("Empty tree") {
@@ -144,9 +150,29 @@ TEST_CASE("avlTree", "[avlTree]") {
       tree.show_indented(oss);
       REQUIRE(oss.str() == ".\n");
    }
+
+   SECTION("Two empty trees") {
+      avlTree<int> tree1;
+      avlTree<int> tree2;
+
+      ostringstream oss;
+      tree1.show_indented(oss);
+      tree2.show_indented(oss);
+      REQUIRE(oss.str() == ".\n"
+                           ".\n");
+   }
 }
 
 TEST_CASE("avlTree(avlTree const &other)", "[avlTree]") {
+
+   SECTION("Empty tree") {
+      avlTree<int> tree;
+      avlTree<int> copied(tree);
+
+      ostringstream oss;
+      copied.show_indented(oss);
+      REQUIRE(oss.str() == ".\n");
+   }
 
    SECTION("Easy tree") {
       avlTree<int> easy = make_easy_test_tree();
@@ -170,9 +196,18 @@ TEST_CASE("avlTree(avlTree const &other)", "[avlTree]") {
    }
 }
 
-
-
 TEST_CASE("operator=", "[avlTree]") {
+
+   SECTION("Empty tree to empty") {
+      avlTree<int> empty;
+      avlTree<int> tree;
+
+      tree = empty;
+
+      ostringstream oss;
+      tree.show_indented(oss);
+      REQUIRE(oss.str() == ".\n");
+   }
 
    SECTION("Easy tree to empty") {
       avlTree<int> easy = make_easy_test_tree();
@@ -223,6 +258,16 @@ TEST_CASE("operator=", "[avlTree]") {
                            "   |_ 10\n");
    }
 
+   SECTION("Empty tree to itself") {
+      avlTree<int> tree;
+
+      tree = tree;
+
+      ostringstream oss;
+      tree.show_indented(oss);
+      REQUIRE(oss.str() == ".\n");
+   }
+
    SECTION("Easy tree to itself") {
       avlTree<int> easy = make_easy_test_tree();
 
@@ -256,7 +301,7 @@ TEST_CASE("erase min", "[avlTree]") {
 
    }
 
-   SECTION("easy tree") {
+   SECTION("Easy tree") {
       avlTree<int> easy = make_easy_test_tree();
 
       easy.erase_min();
@@ -276,7 +321,7 @@ TEST_CASE("erase min", "[avlTree]") {
                              "   |_ 10\n");
    }
 
-   SECTION("one element tree") {
+   SECTION("One element tree") {
       avlTree<int> tree;
       tree.insert(3);
 
@@ -287,7 +332,7 @@ TEST_CASE("erase min", "[avlTree]") {
       REQUIRE(oss.str() == ".\n");
    }
 
-   SECTION("two element tree") {
+   SECTION("Two element tree") {
       avlTree<int> tree;
       tree.insert(3);
       tree.insert(2);
@@ -299,7 +344,7 @@ TEST_CASE("erase min", "[avlTree]") {
       REQUIRE(oss.str() == "3\n");
    }
 
-   SECTION("two element min root tree") {
+   SECTION("Two element tree, min is root") {
       avlTree<int> tree;
       tree.insert(1);
       tree.insert(2);
@@ -321,7 +366,7 @@ TEST_CASE("erase max", "[avlTree]") {
 
    }
 
-   SECTION("easy tree") {
+   SECTION("Easy tree") {
       avlTree<int> easy = make_easy_test_tree();
 
       easy.erase_max();
@@ -341,7 +386,7 @@ TEST_CASE("erase max", "[avlTree]") {
                           "   |_ 9\n");
    }
 
-   SECTION("one element tree") {
+   SECTION("One element tree") {
       avlTree<int> tree;
       tree.insert(3);
 
@@ -352,10 +397,10 @@ TEST_CASE("erase max", "[avlTree]") {
       REQUIRE(oss.str() == ".\n");
    }
 
-   SECTION("two element tree") {
+   SECTION("Two element tree") {
       avlTree<int> tree;
-      tree.insert(3);
       tree.insert(2);
+      tree.insert(3);
 
       tree.erase_max();
 
@@ -364,10 +409,10 @@ TEST_CASE("erase max", "[avlTree]") {
       REQUIRE(oss.str() == "2\n");
    }
 
-   SECTION("two element min root tree") {
+   SECTION("Two element tree, max is root") {
       avlTree<int> tree;
-      tree.insert(1);
       tree.insert(2);
+      tree.insert(1);
 
       tree.erase_max();
 
@@ -380,35 +425,64 @@ TEST_CASE("erase max", "[avlTree]") {
 TEST_CASE("Destructor", "[avlTree]"){
    SECTION("Empty tree"){
       avlTree<int> tree;
+      tree.~avlTree();
+
       ostringstream oss;
       tree.show_indented(oss);
+      REQUIRE(oss.str() == ".\n");
+   }
+
+   SECTION("Easy tree"){
+      avlTree<int> tree = make_easy_test_tree();
+      tree.~avlTree();
+
+      ostringstream oss;
+      tree.show_indented(oss);
+
+      for (int i = 1; i <= 10; ++i) {
+         REQUIRE(!tree.contains(i));
+      }
       REQUIRE(oss.str() == ".\n");
    }
 }
 
 TEST_CASE("min", "[avlTree]") {
+   SECTION("Empty tree") {
+      avlTree<int> tree;
+      REQUIRE_THROWS(tree.min());
+   }
 
    SECTION("Easy tree") {
       avlTree<int> tree = make_easy_test_tree();
       REQUIRE(tree.min() == 1);
    }
 
-   SECTION("Throws empty tree") {
-		avlTree<int> tree;
-		REQUIRE_THROWS(tree.min());
+   SECTION("Min is root") {
+      avlTree<int> tree;
+      tree.insert(3);
+      tree.insert(6);
+      tree.insert(17);
+      REQUIRE(tree.min() == 3);
    }
 }
 
 TEST_CASE("max", "[avlTree]") {
+   SECTION("Empty tree") {
+      avlTree<int> tree;
+      REQUIRE_THROWS(tree.max());
+   }
 
    SECTION("Easy tree") {
       avlTree<int> tree = make_easy_test_tree();
       REQUIRE(tree.max() == 10);
    }
 
-   SECTION("Throws empty tree") {
+   SECTION("Max is root") {
       avlTree<int> tree;
-      REQUIRE_THROWS(tree.max());
+      tree.insert(17);
+      tree.insert(3);
+      tree.insert(6);
+      REQUIRE(tree.max() == 17);
    }
 }
 
@@ -417,7 +491,9 @@ TEST_CASE("contains", "[avlTree]") {
    SECTION("Empty tree") {
       avlTree<int> tree;
 
-      REQUIRE(tree.contains(5) == false);
+      for (int i = 0; i <= 10 ; ++i) {
+         REQUIRE(tree.contains(i) == false);
+      }
    }
 
    SECTION("Key not in tree") {
@@ -500,5 +576,35 @@ TEST_CASE("erase", "[avlTree]") {
       ostringstream oss;
       tree.show_indented(oss);
       REQUIRE(oss.str() == "3\n");
+   }
+}
+
+TEST_CASE("height", "[avlTree]") {
+
+   SECTION("Empty tree") {
+      avlTree<int> tree;
+      REQUIRE(tree.height() == 0);
+   }
+
+   SECTION("Easy tree") {
+      avlTree<int> tree = make_easy_test_tree();
+      REQUIRE(tree.height() == 4);
+   }
+
+   SECTION("One element in tree") {
+      avlTree<int> tree;
+      tree.insert(1);
+
+      REQUIRE(tree.height() == 1);
+   }
+
+   SECTION("Two elements and one deleted in tree") {
+      avlTree<int> tree;
+      tree.insert(1);
+      tree.insert(2);
+      REQUIRE(tree.height() == 2);
+
+      tree.erase(1);
+      REQUIRE(tree.height() == 1);
    }
 }
