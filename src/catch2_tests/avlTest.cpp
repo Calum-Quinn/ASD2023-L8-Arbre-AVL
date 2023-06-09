@@ -467,7 +467,7 @@ TEST_CASE("erase", "[avlTree]") {
                             "   |  |_ 8");
    }
 
-   SECTION("one element tree") {
+   SECTION("One element tree") {
       avlTree<int> tree;
       tree.insert(3);
 
@@ -478,7 +478,7 @@ TEST_CASE("erase", "[avlTree]") {
       REQUIRE(oss.str() == ".\n");
    }
 
-   SECTION("two element tree delete last element") {
+   SECTION("Two element tree, delete last element") {
       avlTree<int> tree;
       tree.insert(3);
       tree.insert(2);
@@ -490,7 +490,7 @@ TEST_CASE("erase", "[avlTree]") {
       REQUIRE(oss.str() == "3\n");
    }
 
-   SECTION("two element delete first element") {
+   SECTION("Two elements, delete first element") {
       avlTree<int> tree;
       tree.insert(2);
       tree.insert(3);

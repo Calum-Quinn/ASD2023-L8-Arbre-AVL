@@ -248,15 +248,15 @@ namespace avl {
       }
       else if(k < node->key){
          erase(node->left(),k);
-         restoreBalance(node);
+//         restoreBalance(node);
       }
       else if(k > node->key){
          erase(node->right(),k);
-         restoreBalance(node);
+//         restoreBalance(node);
       }
       else {
-         Node<Key> *min;
-         Node<Key> *temp = node;
+         Node<Key>* min;
+         Node<Key>* temp = node;
          if (!node->left())
             node = node->right();
          else if (!node->right())
