@@ -68,7 +68,7 @@ namespace avl {
     bool contains(Node<Key>* node,Key const& k);
 
     template<typename Key>
-    void erase(Node<Key>* node, Key const& k);
+    void erase(Node<Key>*& node, Key const& k);
 }
 
 #include "avlNodeImplementation.h"

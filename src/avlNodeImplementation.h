@@ -242,17 +242,17 @@ namespace avl {
    }
 
    template<typename Key>
-   void erase(Node<Key>* node, Key const& k) {
+   void erase(Node<Key>*& node, Key const& k) {
       if(!node){
          return;
       }
       else if(k < node->key){
          erase(node->left(),k);
-//         restoreBalance(node);
+         restoreBalance(node);
       }
       else if(k > node->key){
          erase(node->right(),k);
-//         restoreBalance(node);
+         restoreBalance(node);
       }
       else {
          Node<Key>* min;

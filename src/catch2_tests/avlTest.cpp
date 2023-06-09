@@ -336,10 +336,9 @@ TEST_CASE("erase max", "[avlTree]") {
                           "|  |_ 4\n"
                           "|     |_ .\n"
                           "|     |_ 5\n"
-                          "|_ 9\n"
+                          "|_ 8\n"
                           "   |_ 7\n"
-                          "   |  |_ .\n"
-                          "   |  |_ 8");
+                          "   |_ 9\n");
    }
 
    SECTION("one element tree") {
@@ -362,7 +361,7 @@ TEST_CASE("erase max", "[avlTree]") {
 
       ostringstream oss;
       tree.show_indented(oss);
-      REQUIRE(oss.str() == "3\n");
+      REQUIRE(oss.str() == "2\n");
    }
 
    SECTION("two element min root tree") {
@@ -464,7 +463,8 @@ TEST_CASE("erase", "[avlTree]") {
                             "|_ 9\n"
                             "   |_ 7\n"
                             "   |  |_ .\n"
-                            "   |  |_ 8");
+                            "   |  |_ 8\n"
+                            "   |_ 10\n");
    }
 
    SECTION("One element tree") {
@@ -499,6 +499,6 @@ TEST_CASE("erase", "[avlTree]") {
 
       ostringstream oss;
       tree.show_indented(oss);
-      REQUIRE(oss.str() == "1\n");
+      REQUIRE(oss.str() == "3\n");
    }
 }
