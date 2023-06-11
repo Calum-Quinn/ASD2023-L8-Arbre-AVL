@@ -89,7 +89,6 @@ namespace avl {
    template<typename Key>
    void calculateHeight(Node<Key>*& node) {
       if(node) {
-         //Appeler height() -> opérateur ternaire pour initialiser ou retourner height des enfants
          node->height = 1 + std::max(height(node->left()), height(node->right()));
       }
    }
@@ -225,6 +224,7 @@ namespace avl {
             node = min;
          }
          delete(temp);
+			temp = nullptr;
       }
    }
 }
